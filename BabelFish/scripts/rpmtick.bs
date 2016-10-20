@@ -1,0 +1,3 @@
+// tick rpm in device table.
+run("3","counter=0;");
+schedule( "3", "tputf('ex','rpm','ram',counter++);", "Every", 1);

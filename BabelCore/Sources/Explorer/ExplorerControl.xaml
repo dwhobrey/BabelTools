@@ -1,0 +1,49 @@
+﻿<res:ShellControl x:Class="Babel.Core.ExplorerControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:res="clr-namespace:Babel.Resources;assembly=BabelResources"
+        xmlns:local="clr-namespace:Babel.Core;assembly="
+        >
+    <res:ShellControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </res:ShellControl.Resources>
+    <Grid Margin="6" SizeChanged="Shell_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="CurrentPath"/>
+            <Button Grid.Column="1" 
+                    Margin="4,0,0,0"
+                    Content="Update"
+                    Click="Update_Click"/>
+        </Grid>
+        <local:ExplorerTreeView x:Name="Explorer" Grid.Row="1"
+            SelectedItemChanged="Explorer_SelectedItemChanged"
+            ExplorerError="Explorer_ExplorerError"
+            ContextMenuService.ShowOnDisabled="True"
+            ContextMenu="{DynamicResource FileContext}">
+            <local:ExplorerTreeView.Resources>
+                <ContextMenu x:Key ="FileContext"  StaysOpen="true">
+                    <MenuItem Header="Edit File" Click="EditFile_Click"/>
+                    <MenuItem Header="New File" Click="NewFile_Click"/>
+                    <MenuItem Header="Delete File" Click="DeleteFile_Click"/>
+                </ContextMenu>
+                <ContextMenu x:Key="FolderContext" StaysOpen="true">
+                    <MenuItem Header="New File" Click="NewFile_Click"/>
+                    <MenuItem Header="New Folder" Click="NewFolder_Click"/>
+                    <MenuItem Header="Delete Folder" Click="DeleteFolder_Click"/>
+                </ContextMenu>
+            </local:ExplorerTreeView.Resources>         
+        </local:ExplorerTreeView>
+    </Grid>
+</res:ShellControl>

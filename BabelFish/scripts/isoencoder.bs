@@ -1,0 +1,5 @@
+// Issue an iso encoder test cmd.
+var pid=bplot("ex",17);
+bplotlabels(pid,"ROC Encoder Test","Output","Time/ms");
+bplotseriesname(pid,0,"Encoder");
+bisoreadp("ex",7,-1,-1,-1,"ram",100,0,1,17);

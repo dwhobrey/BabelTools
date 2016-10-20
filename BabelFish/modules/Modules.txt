@@ -1,0 +1,2 @@
+﻿BabelFish will dynamically load any assemblies placed in the modules directory.
+If an assembly depends on other module assemblies, it should load these via the methods in Babel.Modules.

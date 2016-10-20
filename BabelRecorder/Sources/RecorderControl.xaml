@@ -1,0 +1,1290 @@
+﻿<res:ShellControl x:Class="Babel.Recorder.RecorderControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:res="clr-namespace:Babel.Resources;assembly=BabelResources"
+        xmlns:core="clr-namespace:Babel.Core;assembly=BabelCore"
+        xmlns:local="clr-namespace:Babel.Recorder;assembly=BabelRecorder"
+        xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
+        xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        MinWidth="550"
+        MinHeight="300"
+       >
+    <res:ShellControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Styles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BabelRecorder;component/Resources/Recorder.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </res:ShellControl.Resources>
+    <Grid Margin="0" SizeChanged="Shell_SizeChanged" Background="{DynamicResource ControlBackgroundBrush}">
+        <TabControl DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0"
+                    SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Motion">
+                <DockPanel VerticalAlignment="Stretch" Height="Auto" LastChildFill="True">
+                    <Grid HorizontalAlignment="Center" DockPanel.Dock="Bottom" Margin="0,0,0,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="12" Margin="0,4,2,0">Magnify</TextBlock>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Name="ZoomDirection" Margin="0,0,0,0"
+                              SelectedValuePath="Content" SelectedIndex="0"
+                              HorizontalAlignment="Right" Style="{DynamicResource OptionsComboBox}">
+                            <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="X axis"/>
+                            <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Y axis"/>
+                        </ComboBox>
+                        <TextBlock Grid.Row="0" Grid.Column="2"/>
+                        <Button Grid.Row="0" Grid.Column="3" Content="Zero" Name="ZeroButton"/>
+                        <TextBlock Grid.Row="0" Grid.Column="4"/>
+                        <Button Grid.Row="0" Grid.Column="5" Content="Home" Name="HomeButton"/>
+                        <TextBlock Grid.Row="0" Grid.Column="6"/>
+                        <Button Grid.Row="0" Grid.Column="7" Content="Goto" Name="GotoButton"/>
+                        <TextBlock Grid.Row="0" Grid.Column="8"/>
+                        <xctk:DecimalUpDown Grid.Row="0" Grid.Column="9" Name="GotoPosition" 
+                                        FormatString="F0" Increment="1"                                      
+                                        IsReadOnly="False" Value="0"/>
+                        <!--  Minimum="-359" Maximum="359" -->
+                        <TextBlock Grid.Row="0" Grid.Column="10"/>
+                        <TextBlock Grid.Row="0" Grid.Column="11" FontSize="12" Margin="0,4,2,0">RPM%</TextBlock>
+                        <xctk:DecimalUpDown Grid.Row="0" Grid.Column="12"
+                                        Name="GotoRPM" FormatString="F1" Increment="1.0"
+                                        Minimum="1.0" Maximum="100.0" 
+                                        IsReadOnly="False" Value="50.0"/>
+                    </Grid>
+
+                    <Grid HorizontalAlignment="Center" DockPanel.Dock="Bottom" Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                            <TextBlock FontSize="12">Speed</TextBlock>
+                            <xctk:DecimalUpDown Name="TimeLineSpeed" FormatString="F1" Increment="0.1"
+                                        Minimum="0.0" Maximum="16.0" 
+                                        IsReadOnly="False" Value="1.0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="0" Grid.Column="1"/>
+                        <Button Grid.Row="0" Grid.Column="2"  Margin="4,0,0,0" Name="ReverseTimeLineButton">
+                            <DockPanel LastChildFill="True">
+                                <Image DockPanel.Dock="Bottom" Source="{StaticResource MediaReverseImage}" Stretch="None"/>
+                                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" >Back</TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="3"/>
+                        <Button Grid.Row="0" Grid.Column="4" Name="PlayTimeLineButton">
+                            <DockPanel LastChildFill="True">
+                                <Image DockPanel.Dock="Bottom" Source="{StaticResource MediaForwardImage}" Stretch="None"/>
+                                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" >Play</TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="5"/>
+                        <Button Grid.Row="0" Grid.Column="6" Name="RecordTimeLineButton">
+                            <DockPanel LastChildFill="True">
+                                <Image DockPanel.Dock="Bottom" Source="{StaticResource MediaRecordImage}" Stretch="None"/>
+                                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" >Record</TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="7"/>
+                        <Button Grid.Row="0" Grid.Column="8" Name="PauseTimeLineButton">
+                            <DockPanel LastChildFill="True">
+                                <Image DockPanel.Dock="Bottom" Source="{StaticResource MediaPauseImage}" Stretch="None"/>
+                                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" >Pause</TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="9"/>
+                        <Button Grid.Row="0" Grid.Column="10" Name="StopTimeLineButton">
+                            <DockPanel LastChildFill="True">
+                                <Image DockPanel.Dock="Bottom" Source="{StaticResource MediaStopImage}" Stretch="None"/>
+                                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" >Stop</TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="11"/>
+                        <Button Grid.Row="0" Grid.Column="12" Name="PrimeTimeLineButton">
+                            <DockPanel LastChildFill="True">
+                                <Image DockPanel.Dock="Bottom" Source="{StaticResource MediaSkipDownImage}" Stretch="None"/>
+                                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" >Prime</TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <TextBlock Grid.Row="0" Grid.Column="13"/>
+                        <StackPanel Grid.Row="0" Grid.Column="14" Orientation="Vertical">
+                            <TextBlock FontSize="12">Mode</TextBlock>
+                            <ComboBox  Name="RecorderAction" Margin="0,0,5,0"
+                              SelectedValuePath="Content" SelectedIndex="0"
+                              HorizontalAlignment="Right" Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Idle"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Play"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Record"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <DockPanel HorizontalAlignment="Stretch" LastChildFill="True" DockPanel.Dock="Bottom">
+                        <ComboBox DockPanel.Dock="Left" Name="FramesPerSecond" Margin="4,0,0,6"
+                              SelectedValuePath="Content" SelectedIndex="0"
+                              HorizontalAlignment="Right" Style="{DynamicResource OptionsComboBox}">
+                            <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="24"/>
+                            <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="25"/>
+                            <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="30"/>
+                            <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="1000"/>
+                        </ComboBox>
+                        <TextBlock Name="TimeLineCurrent"  Margin="6,4,6,6" DockPanel.Dock="Left" Text="00:00.0"/>
+                        <TextBlock Name="RecorderStatus" Width="80" TextAlignment="Center"
+                                   Margin="6,4,6,6" DockPanel.Dock="Right" Background="White" Text="Not Ready"/>
+                        <TextBlock Name="TimeLineEnd"  Margin="6,4,6,6" DockPanel.Dock="Right" Text="00:00.0"/>
+                        <Slider Name="TimeLineSlider" Margin="0,2,0,10" Minimum="0.0" Maximum="1.0"></Slider>
+                    </DockPanel>
+
+                    <DockPanel VerticalAlignment="Stretch" LastChildFill="True">
+                        <DockPanel DockPanel.Dock="Right">
+                            <Button  DockPanel.Dock="Bottom" Margin="6,4,6,2" Name="LockButton">Lock</Button>
+                            <StackPanel DockPanel.Dock="Bottom">
+                                <TextBlock FontSize="12" HorizontalAlignment="Center" Text="Triggers"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Name="TriggerState1" Style="{StaticResource TinyButtonStyle}"  
+                                            Margin="0,1,2,4" Visibility="Visible">1</Button>
+                                    <Button Name="TriggerState2" Style="{StaticResource TinyButtonStyle}"
+                                            Margin="2,1,0,4" Visibility="Visible">2</Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Name="TriggerState3" Style="{StaticResource TinyButtonStyle}"  
+                                                Margin="0,0,2,4" Visibility="Visible">3</Button>
+                                    <Button Name="TriggerState4" Style="{StaticResource TinyButtonStyle}"
+                                                Margin="2,0,0,4" Visibility="Visible">4</Button>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Top">
+                                <TextBlock FontSize="12" HorizontalAlignment="Center" Text="Ax:On/Shw"/>
+                                <StackPanel Name="AxisInfo1" Visibility="Visible"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState1" Style="{StaticResource TinyButtonStyle}">1</Button>
+                                        <CheckBox Name="AxisActive1" Margin="2,2,0,0" IsChecked="True"/>
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow1" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition1" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo2" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState2" Style="{StaticResource TinyButtonStyle}">2</Button>
+                                        <CheckBox Name="AxisActive2" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow2" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition2" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo3" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState3" Style="{StaticResource TinyButtonStyle}">3</Button>
+                                        <CheckBox Name="AxisActive3" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow3" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition3" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo4" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState4" Style="{StaticResource TinyButtonStyle}">4</Button>
+                                        <CheckBox Name="AxisActive4" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow4" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition4" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo5" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState5" Style="{StaticResource TinyButtonStyle}">5</Button>
+                                        <CheckBox Name="AxisActive5" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow5" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition5" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo6" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState6" Style="{StaticResource TinyButtonStyle}">6</Button>
+                                        <CheckBox Name="AxisActive6" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow6" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition6" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo7" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState7" Style="{StaticResource TinyButtonStyle}">7</Button>
+                                        <CheckBox Name="AxisActive7" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow7" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition7" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                                <StackPanel Name="AxisInfo8" Visibility="Collapsed"
+                                            Orientation="Vertical" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Name="AxisState8" Style="{StaticResource TinyButtonStyle}">8</Button>
+                                        <CheckBox Name="AxisActive8" Margin="2,2,0,0" IsChecked="True" />
+                                        <TextBlock Margin="0,0,0,0" Text="/"/>
+                                        <CheckBox Name="AxisShow8" Margin="2,2,0,0" IsChecked="True" />
+                                    </StackPanel>
+                                    <TextBlock Name="AxisPosition8" FontSize="12" HorizontalAlignment="Center" Text="0.0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                        <oxy:Plot x:Name="plotter"/>
+                    </DockPanel>
+
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Job Storage">
+                <Grid Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="CurrentPath"/>
+                        <Button Grid.Column="1" 
+                            Margin="4,0,0,0"
+                            Content="Read"
+                            Name="ReadRecordingButton"/>
+                        <Button Grid.Column="2" 
+                            Margin="4,0,0,0"
+                            Content="Write"
+                            Name="WriteRecordingButton"/>
+                    </Grid>
+                    <TextBlock Grid.Row="1" FontSize="12" Text="Click on file or folder for more options:"/>
+                    <core:ExplorerTreeView x:Name="Explorer" Grid.Row="2"
+                        ContextMenuService.ShowOnDisabled="True"
+                        ContextMenu="{DynamicResource FileContext}">
+                        <core:ExplorerTreeView.Resources>
+                            <ContextMenu x:Key ="FileContext"  StaysOpen="true">
+                                <MenuItem Header="Read Recording" x:Name="LoadRecordingItem"/>
+                                <MenuItem Header="Write Recording" x:Name="SaveRecordingItem"/>
+                                <MenuItem Header="New Recording" x:Name="NewRecordingItem"/>
+                                <MenuItem Header="Delete File" x:Name="DeleteFileButton"/>
+                            </ContextMenu>
+                            <ContextMenu x:Key="FolderContext" StaysOpen="true">
+                                <MenuItem Header="New Recording" x:Name="NewRecordingFolderButton"/>
+                                <MenuItem Header="New Folder" x:Name="NewFolderButton"/>
+                                <MenuItem Header="Delete Folder" x:Name="DeleteFolderButton"/>
+                            </ContextMenu>
+                        </core:ExplorerTreeView.Resources>
+                    </core:ExplorerTreeView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Axes">
+                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Left" Margin="0,0,0,0" Orientation="Vertical">
+                        <TextBlock Margin="5,5,0,0" Text="Axes:"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,2,5,0" FontSize="12" Text="Enable"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="2,2,5,0" FontSize="12" Text="Type"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Margin="5,2,0,0" FontSize="12" Text="Index"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Margin="5,2,0,0" FontSize="12" Text="Device"/>
+                            <TextBlock Grid.Row="0" Grid.Column="5" Margin="5,2,0,0" FontSize="12" Text="Rank"/>
+                            <TextBlock Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" Margin="5,2,0,0" FontSize="12" Text="Negative Stop"/>
+                            <TextBlock Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="2" Margin="5,2,0,0" FontSize="12" Text="Positive Stop"/>
+                            <TextBlock Grid.Row="0" Grid.Column="10" Margin="5,2,0,0" FontSize="12" Text="Chart label"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="6" Margin="5,2,0,0" FontSize="12" Text="Major"/>
+                            <TextBlock Grid.Row="1" Grid.Column="7" Margin="5,2,0,0" FontSize="12" Text="Minor"/>
+                            <TextBlock Grid.Row="1" Grid.Column="8" Margin="5,2,0,0" FontSize="12" Text="Major"/>
+                            <TextBlock Grid.Row="1" Grid.Column="9" Margin="5,2,0,0" FontSize="12" Text="Minor"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,0,0" Text="1:"/>
+                            <CheckBox Grid.Row="2" Grid.Column="1" Name="AxisEnable1" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="2" Grid.Column="2" Name="AxisKind1" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="3" 
+                                        Name="AxisIndex1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="36"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="4" 
+                                        Name="AxisDevice1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="5" 
+                                        Name="AxisDeviceRank1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="0"/>
+                            
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor1" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+
+                            <TextBox Grid.Row="2" Grid.Column="10" Name="AxisDescription1" Margin="5,3,0,3" Text="Pan"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,0,0" Text="2:"/>
+                            <CheckBox Grid.Row="3" Grid.Column="1" Name="AxisEnable2" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="3" Grid.Column="2" Name="AxisKind2" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="3" 
+                                        Name="AxisIndex2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="38"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="4" 
+                                        Name="AxisDevice2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="5" 
+                                        Name="AxisDeviceRank2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor2" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <TextBox Grid.Row="3" Grid.Column="10" Name="AxisDescription2" Margin="5,3,0,3" Text="Tilt"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,0,0" Text="3:"/>
+                            <CheckBox Grid.Row="4" Grid.Column="1" Name="AxisEnable3" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="4" Grid.Column="2" Name="AxisKind3" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="3" 
+                                        Name="AxisIndex3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="40"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="4" 
+                                        Name="AxisDevice3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="5" 
+                                        Name="AxisDeviceRank3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="2"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor3" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <TextBox Grid.Row="4" Grid.Column="10" Name="AxisDescription3" Margin="5,3,0,3" Text="Roll"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,0,0" Text="4:"/>
+                            <CheckBox Grid.Row="5" Grid.Column="1" Name="AxisEnable4" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="5" Grid.Column="2" Name="AxisKind4" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="3" 
+                                        Name="AxisIndex4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="42"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="4" 
+                                        Name="AxisDevice4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="5" 
+                                        Name="AxisDeviceRank4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="3"/>
+                            
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor4" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <TextBox Grid.Row="5" Grid.Column="10" Name="AxisDescription4" Margin="5,3,0,3" Text="Zoom"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Margin="5,5,0,0" Text="5:"/>
+                            <CheckBox Grid.Row="6" Grid.Column="1" Name="AxisEnable5" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="6" Grid.Column="2" Name="AxisKind5" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="3" 
+                                        Name="AxisIndex5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="44"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="4" 
+                                        Name="AxisDevice5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="5" 
+                                        Name="AxisDeviceRank5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="4"/>
+                            
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor5" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            
+                            <TextBox Grid.Row="6" Grid.Column="10" Name="AxisDescription5" Margin="5,3,0,3" Text="Focus"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Margin="5,5,0,0" Text="6:"/>
+                            <CheckBox Grid.Row="7" Grid.Column="1" Name="AxisEnable6" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="7" Grid.Column="2" Name="AxisKind6" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="3" 
+                                        Name="AxisIndex6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="46"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="4" 
+                                        Name="AxisDevice6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="5" 
+                                        Name="AxisDeviceRank6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="5"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor6" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <TextBox Grid.Row="7" Grid.Column="10" Name="AxisDescription6" Margin="5,3,0,3" Text="Iris"/>
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Margin="5,5,0,0" Text="7:"/>
+                            <CheckBox Grid.Row="8" Grid.Column="1" Name="AxisEnable7" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="8" Grid.Column="2" Name="AxisKind7" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="3" 
+                                        Name="AxisIndex7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="20"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="4" 
+                                        Name="AxisDevice7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="5" 
+                                        Name="AxisDeviceRank7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor7" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <TextBox Grid.Row="8" Grid.Column="10" Name="AxisDescription7" Margin="5,3,0,3" Text="Axis 7"/>
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Margin="5,5,0,0" Text="8:"/>
+                            <CheckBox Grid.Row="9" Grid.Column="1" Name="AxisEnable8" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Row="9" Grid.Column="2" Name="AxisKind8" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Angular"/>
+                                <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="Linear"/>
+                            </ComboBox>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="3" 
+                                        Name="AxisIndex8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="255" 
+                                        IsReadOnly="False" Value="20"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="4" 
+                                        Name="AxisDevice8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="5" 
+                                        Name="AxisDeviceRank8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="7" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="6" 
+                                        Name="AxisMinusStopMajor8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="7" 
+                                        Name="AxisMinusStopMinor8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="8" 
+                                        Name="AxisPlusStopMajor8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="9" 
+                                        Name="AxisPlusStopMinor8" Margin="4,4,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="0" Maximum="999" 
+                                        IsReadOnly="False" Value="0"/>
+                            <TextBox Grid.Row="9" Grid.Column="10" Name="AxisDescription8" Margin="5,3,0,3" Text="Axis 8"/>
+                        </Grid>
+                        <StackPanel DockPanel.Dock="Left" Margin="0,0,0,0" Orientation="Horizontal">
+                            <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                                <TextBlock Margin="5,5,0,0" Text="Devices:"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,2,5,0" FontSize="12" Text="Device Id"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,0,0" Text="1:"/>
+                                    <ComboBox Grid.Row="1" Grid.Column="1" Name="DeviceId1" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" Width="200" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                        <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="None"/>
+                                    </ComboBox>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,0,0" Text="2:"/>
+                                    <ComboBox Grid.Row="2" Grid.Column="1" Name="DeviceId2" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" Width="200" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                        <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="None"/>
+                                    </ComboBox>
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,0,0" Text="3:"/>
+                                    <ComboBox Grid.Row="3" Grid.Column="1" Name="DeviceId3" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" Width="200" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                        <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="None"/>
+                                    </ComboBox>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,0,0" Text="4:"/>
+                                    <ComboBox Grid.Row="4" Grid.Column="1" Name="DeviceId4" Margin="2,0,0,0" 
+                                           HorizontalAlignment="Right" Width="200" SelectedIndex="0"
+                                      Style="{DynamicResource OptionsComboBox}">
+                                        <ComboBoxItem Style="{DynamicResource OptionsComboBoxItem}" Content="None"/>
+                                    </ComboBox>
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Margin="40,40,0,0" Orientation="Vertical">
+                                <TextBlock HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Margin="0,30,0,0" FontSize="14" Text="Warning: changing settings will reset the cache."/>
+                        </StackPanel>
+                    </StackPanel>
+                    </StackPanel>
+                    <TextBlock DockPanel.Dock="Right"/>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Triggers">
+                <TabControl DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0">
+                    <TabItem Header="1">
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" LastChildFill="True">
+                            <Grid DockPanel.Dock="Left">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Enable"/>
+                                <CheckBox Grid.Row="0" Grid.Column="1" Margin="2,4,0,0" Name="TriggerEnable1"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="2" Margin="2,4,5,0" FontSize="12" Text="Description"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="4" Margin="5,0,0,3" Name="TriggerDescription1"  Text="Trigger name."/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Input Event"/>
+                                <TextBlock Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Output Action"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Play"/>
+                                <CheckBox Grid.Row="2" Grid.Column="1" Name="TriggerPlayInput1" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="2" Grid.Column="4" Name="TriggerPlayOutput1" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <Button Grid.Row="2" Grid.Column="6" Margin="2,0,0,0" Name="TriggerTestButton1">Test</Button>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Record"/>
+                                <CheckBox Grid.Row="3" Grid.Column="1" Name="TriggerRecordInput1" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="3" Grid.Column="4" Name="TriggerRecordOutput1" Margin="2,4,0,0" HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="2" Margin="4,2,0,0" FontSize="12" Text="Dev id" Height="15" VerticalAlignment="Top"/>
+                                <TextBlock Grid.Row="4" Grid.Column="3" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="5" Margin="4,2,2,0" FontSize="12" Text="Dev mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="6" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Signal"/>
+                                <CheckBox Grid.Row="5" Grid.Column="1" Name="TriggerSignalInput1" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" 
+                                        Name="TriggerInputDeviceId1" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="3" 
+                                        Name="TriggerInputBitMask1" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <CheckBox Grid.Row="5" Grid.Column="4" Name="TriggerSignalOutput1" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="5" 
+                                        Name="TriggerOutputDeviceMask1" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="6" 
+                                        Name="TriggerOutputBitMask1" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Active high"/>
+                                <CheckBox Grid.Row="6" Grid.Column="1" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighInput1"  HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="6" Grid.Column="4" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighOutput1"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Delay"/>
+                                <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Margin="4,2,5,0" FontSize="12" Text="Pulse length"/>
+                                <TextBlock Grid.Row="7" Grid.Column="6" Margin="4,2,5,0" FontSize="12" Text="Repeat"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" 
+                                        Name="TriggerDelaySeconds1" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="3600" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="8" Grid.Column="3" Margin="4,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="8" Grid.Column="4" 
+                                        Name="TriggerPulseLength1" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="1.0"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="6" 
+                                        Name="TriggerRepeat1" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="60000" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="frames"/>
+                                <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" 
+                                        Name="TriggerDelayFrames1" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="1000" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,4,5,0" 
+                                           HorizontalAlignment="Right" FontSize="12" Text="Cycle: seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="9" Grid.Column="6" 
+                                        Name="TriggerPulseCycle1" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="0.0"/>
+                            </Grid>
+                            <TextBlock/>
+                        </DockPanel>
+                    </TabItem>
+
+                    <TabItem Header="2">
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" LastChildFill="True">
+                            <Grid DockPanel.Dock="Left">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Enable"/>
+                                <CheckBox Grid.Row="0" Grid.Column="1" Margin="2,4,0,0" Name="TriggerEnable2"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="2" Margin="2,4,5,0" FontSize="12" Text="Description"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="4" Margin="5,0,0,3" Name="TriggerDescription2"  Text="Trigger name."/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Input Event"/>
+                                <TextBlock Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Output Action"/>
+                                
+                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Play"/>
+                                <CheckBox Grid.Row="2" Grid.Column="1" Name="TriggerPlayInput2" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="2" Grid.Column="4" Name="TriggerPlayOutput2" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <Button Grid.Row="2" Grid.Column="6" Margin="2,0,0,0" Name="TriggerTestButton2">Test</Button>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Record"/>
+                                <CheckBox Grid.Row="3" Grid.Column="1" Name="TriggerRecordInput2" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="3" Grid.Column="4" Name="TriggerRecordOutput2" Margin="2,4,0,0" HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="2" Margin="4,2,0,0" FontSize="12" Text="Dev id" Height="15" VerticalAlignment="Top"/>
+                                <TextBlock Grid.Row="4" Grid.Column="3" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="5" Margin="4,2,2,0" FontSize="12" Text="Dev mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="6" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Signal"/>
+                                <CheckBox Grid.Row="5" Grid.Column="1" Name="TriggerSignalInput2" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" 
+                                        Name="TriggerInputDeviceId2" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="3" 
+                                        Name="TriggerInputBitMask2" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <CheckBox Grid.Row="5" Grid.Column="4" Name="TriggerSignalOutput2" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="5" 
+                                        Name="TriggerOutputDeviceMask2" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="6" 
+                                        Name="TriggerOutputBitMask2" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Active high"/>
+                                <CheckBox Grid.Row="6" Grid.Column="1" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighInput2"  HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="6" Grid.Column="4" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighOutput2"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Delay"/>
+                                <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Margin="4,2,5,0" FontSize="12" Text="Pulse length"/>
+                                <TextBlock Grid.Row="7" Grid.Column="6" Margin="4,2,5,0" FontSize="12" Text="Repeat"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" 
+                                        Name="TriggerDelaySeconds2" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="3600" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="8" Grid.Column="3" Margin="4,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="8" Grid.Column="4" 
+                                        Name="TriggerPulseLength2" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="1.0"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="6" 
+                                        Name="TriggerRepeat2" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="60000" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="frames"/>
+                                <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" 
+                                        Name="TriggerDelayFrames2" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="1000" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,4,5,0" 
+                                           HorizontalAlignment="Right" FontSize="12" Text="Cycle: seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="9" Grid.Column="6" 
+                                        Name="TriggerPulseCycle2" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="0.0"/>
+                            </Grid>
+                            <TextBlock/>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="3">
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" LastChildFill="True">
+                            <Grid DockPanel.Dock="Left">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Enable"/>
+                                <CheckBox Grid.Row="0" Grid.Column="1" Margin="2,4,0,0" Name="TriggerEnable3"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="2" Margin="2,4,5,0" FontSize="12" Text="Description"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="4" Margin="5,0,0,3" Name="TriggerDescription3"  Text="Trigger name."/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Input Event"/>
+                                <TextBlock Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Output Action"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Play"/>
+                                <CheckBox Grid.Row="2" Grid.Column="1" Name="TriggerPlayInput3" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="2" Grid.Column="4" Name="TriggerPlayOutput3" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <Button Grid.Row="2" Grid.Column="6" Margin="2,0,0,0" Name="TriggerTestButton3">Test</Button>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Record"/>
+                                <CheckBox Grid.Row="3" Grid.Column="1" Name="TriggerRecordInput3" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="3" Grid.Column="4" Name="TriggerRecordOutput3" Margin="2,4,0,0" HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="2" Margin="4,2,0,0" FontSize="12" Text="Dev id" Height="15" VerticalAlignment="Top"/>
+                                <TextBlock Grid.Row="4" Grid.Column="3" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="5" Margin="4,2,2,0" FontSize="12" Text="Dev mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="6" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Signal"/>
+                                <CheckBox Grid.Row="5" Grid.Column="1" Name="TriggerSignalInput3" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" 
+                                        Name="TriggerInputDeviceId3" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="3" 
+                                        Name="TriggerInputBitMask3" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <CheckBox Grid.Row="5" Grid.Column="4" Name="TriggerSignalOutput3" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="5" 
+                                        Name="TriggerOutputDeviceMask3" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="6" 
+                                        Name="TriggerOutputBitMask3" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Active high"/>
+                                <CheckBox Grid.Row="6" Grid.Column="1" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighInput3"  HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="6" Grid.Column="4" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighOutput3"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Delay"/>
+                                <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Margin="4,2,5,0" FontSize="12" Text="Pulse length"/>
+                                <TextBlock Grid.Row="7" Grid.Column="6" Margin="4,2,5,0" FontSize="12" Text="Repeat"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" 
+                                        Name="TriggerDelaySeconds3" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="3600" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="8" Grid.Column="3" Margin="4,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="8" Grid.Column="4" 
+                                        Name="TriggerPulseLength3" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="1.0"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="6" 
+                                        Name="TriggerRepeat3" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="60000" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="frames"/>
+                                <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" 
+                                        Name="TriggerDelayFrames3" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="1000" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,4,5,0" 
+                                           HorizontalAlignment="Right" FontSize="12" Text="Cycle: seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="9" Grid.Column="6" 
+                                        Name="TriggerPulseCycle3" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="0.0"/>
+                            </Grid>
+                            <TextBlock/>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="4">
+                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" LastChildFill="True">
+                            <Grid DockPanel.Dock="Left">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Enable"/>
+                                <CheckBox Grid.Row="0" Grid.Column="1" Margin="2,4,0,0" Name="TriggerEnable4"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="2" Margin="2,4,5,0" FontSize="12" Text="Description"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="4" Margin="5,0,0,3" Name="TriggerDescription4"  Text="Trigger name."/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Input Event"/>
+                                <TextBlock Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,2,5,0" FontSize="12" Text="Output Action"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Play"/>
+                                <CheckBox Grid.Row="2" Grid.Column="1" Name="TriggerPlayInput4" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="2" Grid.Column="4" Name="TriggerPlayOutput4" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <Button Grid.Row="2" Grid.Column="6" Margin="2,0,0,0" Name="TriggerTestButton4">Test</Button>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Record"/>
+                                <CheckBox Grid.Row="3" Grid.Column="1" Name="TriggerRecordInput4" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="3" Grid.Column="4" Name="TriggerRecordOutput4" Margin="2,4,0,0" HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="2" Margin="4,2,0,0" FontSize="12" Text="Dev id" Height="15" VerticalAlignment="Top"/>
+                                <TextBlock Grid.Row="4" Grid.Column="3" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="5" Margin="4,2,2,0" FontSize="12" Text="Dev mask"/>
+                                <TextBlock Grid.Row="4" Grid.Column="6" Margin="4,2,2,0" FontSize="12" Text="Bit mask"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Signal"/>
+                                <CheckBox Grid.Row="5" Grid.Column="1" Name="TriggerSignalInput4" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" 
+                                        Name="TriggerInputDeviceId4" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="4" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="3" 
+                                        Name="TriggerInputBitMask4" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <CheckBox Grid.Row="5" Grid.Column="4" Name="TriggerSignalOutput4" Margin="2,4,0,0" HorizontalAlignment="Center" />
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="5" 
+                                        Name="TriggerOutputDeviceMask4" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+                                <xctk:IntegerUpDown Grid.Row="5" Grid.Column="6" 
+                                        Name="TriggerOutputBitMask4" Margin="4,0,0,4"
+                                        FormatString="N0" Increment="1"
+                                        Minimum="1" Maximum="15" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Margin="2,4,0,0" FontSize="12" Text="Active high"/>
+                                <CheckBox Grid.Row="6" Grid.Column="1" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighInput4"  HorizontalAlignment="Center" />
+                                <CheckBox Grid.Row="6" Grid.Column="4" Margin="2,4,0,0" 
+                                          IsChecked="True"
+                                          Name="TriggerActiveHighOutput4"  HorizontalAlignment="Center" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Margin="2,2,5,0" FontSize="12" Text="Delay"/>
+                                <TextBlock Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Margin="4,2,5,0" FontSize="12" Text="Pulse length"/>
+                                <TextBlock Grid.Row="7" Grid.Column="6" Margin="4,2,5,0" FontSize="12" Text="Repeat"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" 
+                                        Name="TriggerDelaySeconds4" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="3600" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="8" Grid.Column="3" Margin="4,4,5,0" FontSize="12" Text="seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="8" Grid.Column="4" 
+                                        Name="TriggerPulseLength4" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="1.0"/>
+                                <xctk:IntegerUpDown Grid.Row="8" Grid.Column="6" 
+                                        Name="TriggerRepeat4" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="60000" 
+                                        IsReadOnly="False" Value="1"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Margin="2,4,5,0" FontSize="12" Text="frames"/>
+                                <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" 
+                                        Name="TriggerDelayFrames4" Margin="4,0,0,4"
+                                        FormatString="F0" Increment="1"
+                                        Minimum="0" Maximum="1000" 
+                                        IsReadOnly="False" Value="0"/>
+                                <TextBlock Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Margin="2,4,5,0" 
+                                           HorizontalAlignment="Right" FontSize="12" Text="Cycle: seconds"/>
+                                <xctk:DecimalUpDown Grid.Row="9" Grid.Column="6" 
+                                        Name="TriggerPulseCycle4" Margin="4,0,0,4"
+                                        FormatString="F3" Increment="0.001"
+                                        Minimum="0" Maximum="3600.0" 
+                                        IsReadOnly="False" Value="0.0"/>
+                            </Grid>
+                            <TextBlock/>
+                        </DockPanel>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Options">
+                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Left" Margin="0,0,0,0" Orientation="Vertical">
+                        <StackPanel  DockPanel.Dock="Left" Orientation="Vertical" Margin="10,0,0,0">
+                            <StackPanel Margin="5,5,0,0" Orientation="Horizontal">
+                                <StackPanel Margin="5,5,0,0" Orientation="Vertical"  VerticalAlignment="Top">
+                                    <TextBlock Margin="5,5,0,0" Text="Chart:"/>
+                                    <Button Margin="6,4,6,2" Name="SaveImageButton">Save chart</Button>
+                                </StackPanel>
+                                <StackPanel Margin="5,5,0,0" Orientation="Vertical" VerticalAlignment="Top">
+                                    <TextBlock Margin="5,5,0,0" Text="General:"/>
+                                    <StackPanel Margin="5,5,0,0" Orientation="Vertical">
+                                        <TextBlock FontSize="12" Margin="0,4,4,0" Text=" Lock password:"/>
+                                        <TextBox Name="LockPassword" Margin="0,0,6,0" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock DockPanel.Dock="Right"/>
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</res:ShellControl>

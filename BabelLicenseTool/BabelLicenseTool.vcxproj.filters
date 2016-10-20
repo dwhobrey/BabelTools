@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{5af2c8f4-e65d-423d-b2de-ffdab5a4ebc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CryptoppLite">
+      <UniqueIdentifier>{b9951d28-5cbc-4cb5-bf15-4aadc488e84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{237c90aa-b6de-4231-9aa1-5360bc9db5ed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\CryptoppLite\algparam.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\base32.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\basecode.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\trdlocal.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\cpu.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\cryptlib.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\cryptopplite.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\des.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\dessp.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\filters.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\fips140.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\hex.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\hrtimer.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\iterhash.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\misc.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\modes.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\mqueue.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\osrng.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\pch.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\queue.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\randpool.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\rdtables.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\rijndael.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\rng.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\sha.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\simple.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\strciphr.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CryptoppLite\crc.cpp">
+      <Filter>CryptoppLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\BabelLicenseTool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shared\BabelLicense.cpp">
+      <Filter>Shared</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CryptoppLite\aes.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\algparam.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\argnames.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\base32.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\basecode.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\config.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\cpu.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\cryptlib.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\des.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\filters.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\fips140.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\fltrimpl.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\hex.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\hrtimer.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\iterhash.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\misc.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\modes.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\mqueue.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\osrng.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\pch.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\queue.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\randpool.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\rijndael.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\rng.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\secblock.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\seckey.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\sha.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\simple.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\smartptr.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\stdcpp.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\strciphr.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\trdlocal.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\words.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CryptoppLite\crc.h">
+      <Filter>CryptoppLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared\BabelLicense.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

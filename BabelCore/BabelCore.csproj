@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B008E046-01EE-4647-A945-7EE7D1C906C4}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Babel.Core</RootNamespace>
+    <AssemblyName>BabelCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Lite86|AnyCPU'">
+    <OutputPath>bin\Lite86\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Lite86|x86'">
+    <OutputPath>bin\x86\Lite86\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicDataDisplay, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\DynamicDataDisplay.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=4.1.0.7916, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="JintPlus">
+      <HintPath>Dependencies\JintPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="OxyPlot, Version=2014.1.240.1, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=2014.1.240.1, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=2014.1.240.1, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyTools">
+      <HintPath>..\packages\PropertyTools.Wpf.2014.1.12.1\lib\NET45\PropertyTools.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyTools.Wpf">
+      <HintPath>..\packages\PropertyTools.Wpf.2014.1.12.1\lib\NET45\PropertyTools.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Smrf.NodeXL.Control.Wpf, Version=1.0.1.236, Culture=neutral, PublicKeyToken=7d233ba7875a1b76, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Smrf.NodeXL.Control.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Smrf.NodeXL.Core, Version=1.0.1.236, Culture=neutral, PublicKeyToken=7d233ba7875a1b76, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Smrf.NodeXL.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Smrf.NodeXL.Layouts, Version=1.0.1.236, Culture=neutral, PublicKeyToken=7d233ba7875a1b76, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Smrf.NodeXL.Layouts.dll</HintPath>
+    </Reference>
+    <Reference Include="Smrf.NodeXL.Util, Version=1.0.1.236, Culture=neutral, PublicKeyToken=7d233ba7875a1b76, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Smrf.NodeXL.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Smrf.NodeXL.Visualization.Wpf, Version=1.0.1.236, Culture=neutral, PublicKeyToken=7d233ba7875a1b76, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Smrf.NodeXL.Visualization.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sources\Chart\ChartControl.xaml.cs">
+      <DependentUpon>ChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\AboutBox.xaml.cs">
+      <DependentUpon>AboutBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\BabelCore.cs" />
+    <Compile Include="Sources\Core\Component.cs" />
+    <Compile Include="Sources\Core\ComponentListeners.cs" />
+    <Compile Include="Sources\Core\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\LicenseBox.xaml.cs">
+      <DependentUpon>LicenseBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\Lima.cs" />
+    <Compile Include="Sources\Core\LockBox.cs" />
+    <Compile Include="Sources\Core\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\Modules.cs" />
+    <Compile Include="Sources\Core\ProgressPopup.xaml.cs">
+      <DependentUpon>ProgressPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Core\Project.cs" />
+    <Compile Include="Sources\Core\Settings.cs" />
+    <Compile Include="Sources\Core\StatusInformationBar.cs" />
+    <Compile Include="Sources\Editor\BraceFoldingStrategy.cs" />
+    <Compile Include="Sources\Editor\EditorControl.xaml.cs">
+      <DependentUpon>EditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Editor\ScriptCompletionData.cs" />
+    <Compile Include="Sources\Explorer\ExplorerControl.xaml.cs">
+      <DependentUpon>ExplorerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Explorer\ExplorerErrorEventArgs.cs" />
+    <Compile Include="Sources\Explorer\ExplorerTreeView.cs" />
+    <Compile Include="Sources\General\ConditionVariable.cs" />
+    <Compile Include="Sources\General\DequeBlockingCollection.cs" />
+    <Compile Include="Sources\General\Gate.cs" />
+    <Compile Include="Sources\General\LinkedBlockingCollection.cs" />
+    <Compile Include="Sources\General\Primitives.cs" />
+    <Compile Include="Sources\General\TokenAllocator.cs" />
+    <Compile Include="Sources\Graph\GraphControl.xaml.cs">
+      <DependentUpon>GraphControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\HtmlViewer\HTMLConverter.cs" />
+    <Compile Include="Sources\HtmlViewer\ShellHtmlControl.xaml.cs">
+      <DependentUpon>ShellHtmlControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Plot\DataCache.cs" />
+    <Compile Include="Sources\Plot\PlotAxes.cs" />
+    <Compile Include="Sources\Plot\PlotControl.cs" />
+    <Compile Include="Sources\Scope\ScopeControl.cs" />
+    <Compile Include="Sources\Scripting\ScriptBinder.cs" />
+    <Compile Include="Sources\Scripting\ScriptControl.cs" />
+    <Compile Include="Sources\Scripting\ScriptEngine.cs" />
+    <Compile Include="Sources\Scripting\ScriptFilter.cs" />
+    <Compile Include="Sources\Scripting\Scripts.cs" />
+    <Compile Include="Sources\Scripting\StringSplitter.cs" />
+    <Compile Include="Sources\Shell\InterruptSource.cs" />
+    <Compile Include="Sources\Shell\Shell.cs" />
+    <Compile Include="Sources\Shell\ShellTextControl.xaml.cs">
+      <DependentUpon>ShellTextControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Standard\Error.cs" />
+    <Compile Include="Sources\Standard\Log.cs" />
+    <Compile Include="Sources\Standard\ShellTraceListener.cs" />
+    <Compile Include="Sources\Standard\StandardCommands.cs" />
+    <Page Include="Sources\Chart\ChartControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\MessageDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\AboutBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\Help.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\LicenseBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\LockBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Core\ProgressPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sources\Editor\EditorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Explorer\ExplorerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Graph\GraphControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\HtmlViewer\ShellHtmlControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Plot\PlotControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Scope\ScopeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sources\Shell\ShellTextControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dependencies\Antlr3.Runtime.dll" />
+    <None Include="Dependencies\Antlr3.Runtime.pdb" />
+    <None Include="Dependencies\DynamicDataDisplay.dll" />
+    <None Include="Dependencies\DynamicDataDisplay.pdb" />
+    <None Include="Dependencies\ICSharpCode.AvalonEdit.dll" />
+    <None Include="Dependencies\Smrf.NodeXL.Control.Wpf.dll" />
+    <None Include="Dependencies\Smrf.NodeXL.Core.dll" />
+    <None Include="Dependencies\Smrf.NodeXL.Layouts.dll" />
+    <None Include="Dependencies\Smrf.NodeXL.Util.dll" />
+    <None Include="Dependencies\Smrf.NodeXL.Visualization.Wpf.dll" />
+    <Resource Include="Resources\ProjectSettings.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+    <None Include="Dependencies\JintPlus.dll" />
+    <None Include="Dependencies\JintPlus.pdb" />
+    <None Include="Dependencies\OxyPlot.dll" />
+    <None Include="Dependencies\OxyPlot.pdb" />
+    <None Include="Dependencies\OxyPlot.Wpf.dll" />
+    <None Include="Dependencies\OxyPlot.Wpf.pdb" />
+    <None Include="Dependencies\OxyPlot.WindowsForms.dll" />
+    <None Include="Dependencies\OxyPlot.WindowsForms.pdb" />
+    <Content Include="Resources\ICSharpCode.AvalonEdit.xml" />
+    <EmbeddedResource Include="Resources\Indenter.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BabelResources\BabelResources.csproj">
+      <Project>{0df31350-4e7e-42e3-ba0a-e06f6333a550}</Project>
+      <Name>BabelResources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

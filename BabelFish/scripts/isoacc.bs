@@ -1,0 +1,7 @@
+// Issue an iso acc test cmd.
+var pid=bplot("ex",17);
+bplotlabels(pid,"TBOne Acc Test","Outputs","Time/ms");
+bplotseriesname(pid,0,"X");
+bplotseriesname(pid,1,"Y");
+bplotseriesname(pid,2,"Z");
+bisoreadp("ex",7,8,9,-1,"ram",100,0,1,17);

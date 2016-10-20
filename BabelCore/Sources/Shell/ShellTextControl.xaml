@@ -1,0 +1,24 @@
+﻿<local:ScriptControl x:Class="Babel.Core.ShellTextControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:res="clr-namespace:Babel.Resources;assembly=BabelResources"
+    xmlns:local="clr-namespace:Babel.Core;assembly="
+    >
+    <local:ScriptControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:ScriptControl.Resources>
+    <Grid SizeChanged="Shell_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>  
+        <res:ShellTextBox Grid.Row="0" x:Name="Contents" 
+                Margin="0,0,0,0"  
+                Style="{DynamicResource ShellTextControlStyle}" 
+                KeyUp="Shell_OnKeyUp" />
+    </Grid>
+    <!-- Style="{DynamicResource ShellTextControlStyle}" -->
+</local:ScriptControl>

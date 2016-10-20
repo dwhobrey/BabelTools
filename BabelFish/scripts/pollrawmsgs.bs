@@ -1,0 +1,2 @@
+﻿// Poll for messages.
+schedule( "3", "while(bavailable('ex')>0) write(3,'\\n'+bget('ex')); return '';", "Every", 2);

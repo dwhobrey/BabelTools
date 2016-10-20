@@ -1,0 +1,21 @@
+﻿<res:ShellControl x:Class="Babel.Core.GraphControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:res="clr-namespace:Babel.Resources;assembly=BabelResources"
+        xmlns:local="clr-namespace:Babel.Core;assembly=BabelCore"
+        xmlns:nodexl="clr-namespace:Smrf.NodeXL.Visualization.Wpf;assembly=Smrf.NodeXL.Control.Wpf">
+    <res:ShellControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </res:ShellControl.Resources>
+    <Grid Margin="6" SizeChanged="Shell_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <nodexl:NodeXLControl x:Name="Graph" Grid.Row="0" >
+        </nodexl:NodeXLControl>
+    </Grid>
+</res:ShellControl>

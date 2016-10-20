@@ -1,0 +1,2 @@
+// Issue an iso test cmd.
+bisoreadp("ex",23,-1,-1,"ram",3000,20);

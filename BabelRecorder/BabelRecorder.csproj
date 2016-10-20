@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF8EC0E7-401D-45DE-B51A-FACDD1EE3DA3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Babel.Recorder</RootNamespace>
+    <AssemblyName>BabelRecorder</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JintPlus">
+      <HintPath>..\BabelCore\Dependencies\JintPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\BabelCore\Dependencies\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms">
+      <HintPath>..\BabelCore\Dependencies\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf">
+      <HintPath>..\BabelCore\Dependencies\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.1.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\Axes.cs" />
+    <Compile Include="Sources\AxisPortProperties.cs" />
+    <Compile Include="Sources\AxisProperties.cs" />
+    <Compile Include="Sources\BabelRecorder.cs" />
+    <Compile Include="Sources\JobStorage.cs" />
+    <Compile Include="Sources\Motion.cs" />
+    <Compile Include="Sources\Options.cs" />
+    <Compile Include="Sources\RecorderAxes.cs" />
+    <Compile Include="Sources\RecorderChart.cs" />
+    <Compile Include="Sources\RecorderControl.cs" />
+    <Compile Include="Sources\AxesController.cs" />
+    <Compile Include="Sources\TriggerProperties.cs" />
+    <Compile Include="Sources\Triggers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BabelCore\BabelCore.csproj">
+      <Project>{b008e046-01ee-4647-a945-7ee7d1c906c4}</Project>
+      <Name>BabelCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BabelProtocol\BabelProtocol.csproj">
+      <Project>{57182a86-37bd-4757-8bdc-a93a5c8af3c3}</Project>
+      <Name>BabelProtocol</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BabelResources\BabelResources.csproj">
+      <Project>{0df31350-4e7e-42e3-ba0a-e06f6333a550}</Project>
+      <Name>BabelResources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BabelUsb\BabelUsb.csproj">
+      <Project>{fa0aca3f-5892-4457-9c67-54d5e01f3aef}</Project>
+      <Name>BabelUsb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BabelXLink\BabelXLink.csproj">
+      <Project>{29eea01a-3fbc-45f3-9f21-f18223a7cc26}</Project>
+      <Name>BabelXLink</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Recorder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Page Include="Sources\RecorderControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\control-180-icon.png" />
+    <Resource Include="images\control-double-090-icon.png" />
+    <Resource Include="images\control-double-180-icon.png" />
+    <Resource Include="images\control-double-icon.png" />
+    <Resource Include="images\control-icon.png" />
+    <Resource Include="images\control-pause-icon.png" />
+    <Resource Include="images\control-record-icon.png" />
+    <Resource Include="images\control-skip-090-icon.png" />
+    <Resource Include="images\control-skip-180-icon.png" />
+    <Resource Include="images\control-skip-270-icon.png" />
+    <Resource Include="images\control-skip-icon.png" />
+    <Resource Include="images\control-stop-180-icon.png" />
+    <Resource Include="images\control-stop-icon.png" />
+    <Resource Include="images\control-stop-square-icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y $(TargetDir)$(ProjectName).* $(SolutionDir)BabelFish\$(OutDir)modules\</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

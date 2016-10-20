@@ -1,0 +1,4 @@
+﻿// generalprojectstart.bs Runs on project start up.
+rehash
+parametertableheader
+write "0" "Hello"

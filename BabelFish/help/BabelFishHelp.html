@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0016)http://localhost -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>BabelFish</title>
+ <style type="text/css">
+      body
+      {
+      background-color: #CCFF99;
+      color: black;
+      font-family: verdana;
+      font-size: 12px;
+      margin: 0px;
+      padding: 15px;
+      }
+      h1, h2, h3, h4
+      {
+      margin: 8px 0px 4px 0px;
+      padding: 0px;
+      color: black;
+      }
+      a
+      {
+      color: red;
+      text-decoration: none;
+      }
+      .toggle
+      {
+      font-family: verdana;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 2.0;
+      margin: 8px 0px 4px 0px;
+      padding: 0px;
+      color: black;
+      }
+    </style>
+
+    <script language="javascript" type="text/javascript">
+      function toggle(id) {
+      var d = document.getElementById(id);
+      if(d.style.display == "block") {
+      d.style.display = "none";
+      } else {
+      d.style.display = "block";
+      }
+      }
+    </script>
+
+  </head>
+  <body>
+    <h1>BabelFish Help (v1)</h1>
+    <p>Click on the topic headings below for further details:</p>
+
+    <a class="toggle" href="javascript:toggle('Install');">Installation &amp; Setup</a>
+    <br />
+    <div id="Install" style="display: none">
+      <h3>Directory structure</h3>
+      <p>
+        Root project directory.
+      </p>
+
+      <h3>Required components</h3>
+      <p>
+        <b>BabelFish</b> This is the user control console that runs on the PC.
+      </p>
+      
+      <h3>Setup / Running</h3>
+      <p>
+        Cables<br/>
+        A) BabelFish is connected to the PC via one or more usb or serial com port cables.<br/>
+      </p>
+
+    </div>
+
+    <a class="toggle" href="javascript:toggle('BabelFish');">BabelFish</a>
+    <br />
+    <div id="BabelFish" style="display: none">
+      <h3>Overview</h3>
+      <p>
+        The BabelFish presents a main terminal console and output windows for monitoring a system.<br/>
+        The window on the left is the main 'Console' window from which scripts (etc) can be run.
+        The windows on the right are for communicating with Babel enabled devices.
+      </p>
+    </div>
+
+  </body>
+</html>

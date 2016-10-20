@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Shared.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/RadioButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ListBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Expander.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/GroupBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/GridSplitter.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Label.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/TabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ProgressBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Slider.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ToolTip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ResizeGrip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Frame.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ListView.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ToolBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/StatusBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/DocumentViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/DataGrid.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/DatePicker.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/TextBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/TextBoxStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ShellTextBoxStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Window.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/UserControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/ScrollBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Grid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/Menu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/TreeViewStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/MdiShared.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/MdiChildStyles.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/BabelResources;component/Resources/MdiContainerStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

@@ -1,0 +1,6 @@
+# Set up exchange
+exname="ex";
+cid=col(0,row(1,dev()));
+bmap(cid,"3",exname,2);
+bapply();
+bme();

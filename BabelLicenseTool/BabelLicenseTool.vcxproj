@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Lite86|Win32">
+      <Configuration>Lite86</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F6DA6B31-A210-4039-BD9F-9FFD5BB046ED}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BabelLicense</RootNamespace>
+    <ProjectName>BabelLicenseTool</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lite86|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Lite86|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>blt</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>blt</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lite86|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>blt</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)BabelLicenseTool/Shared;$(SolutionDir)CryptoppLite;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)BabelLicenseTool/Shared;$(SolutionDir)CryptoppLite;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <Profile>true</Profile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Lite86|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)BabelLicenseTool/Shared;$(SolutionDir)CryptoppLite;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\CryptoppLite\crc.cpp" />
+    <ClCompile Include="Shared\BabelLicense.cpp" />
+    <ClCompile Include="Sources\BabelLicenseTool.cpp" />
+    <ClCompile Include="..\CryptoppLite\algparam.cpp" />
+    <ClCompile Include="..\CryptoppLite\base32.cpp" />
+    <ClCompile Include="..\CryptoppLite\basecode.cpp" />
+    <ClCompile Include="..\CryptoppLite\cpu.cpp" />
+    <ClCompile Include="..\CryptoppLite\cryptlib.cpp" />
+    <ClCompile Include="..\CryptoppLite\des.cpp" />
+    <ClCompile Include="..\CryptoppLite\dessp.cpp" />
+    <ClCompile Include="..\CryptoppLite\cryptopplite.cpp" />
+    <ClCompile Include="..\CryptoppLite\filters.cpp" />
+    <ClCompile Include="..\CryptoppLite\fips140.cpp" />
+    <ClCompile Include="..\CryptoppLite\hex.cpp" />
+    <ClCompile Include="..\CryptoppLite\hrtimer.cpp" />
+    <ClCompile Include="..\CryptoppLite\iterhash.cpp" />
+    <ClCompile Include="..\CryptoppLite\misc.cpp" />
+    <ClCompile Include="..\CryptoppLite\modes.cpp" />
+    <ClCompile Include="..\CryptoppLite\mqueue.cpp" />
+    <ClCompile Include="..\CryptoppLite\osrng.cpp" />
+    <ClCompile Include="..\CryptoppLite\pch.cpp" />
+    <ClCompile Include="..\CryptoppLite\queue.cpp" />
+    <ClCompile Include="..\CryptoppLite\randpool.cpp" />
+    <ClCompile Include="..\CryptoppLite\rdtables.cpp" />
+    <ClCompile Include="..\CryptoppLite\rijndael.cpp" />
+    <ClCompile Include="..\CryptoppLite\rng.cpp" />
+    <ClCompile Include="..\CryptoppLite\sha.cpp" />
+    <ClCompile Include="..\CryptoppLite\simple.cpp" />
+    <ClCompile Include="..\CryptoppLite\strciphr.cpp" />
+    <ClCompile Include="..\CryptoppLite\trdlocal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CryptoppLite\aes.h" />
+    <ClInclude Include="..\CryptoppLite\algparam.h" />
+    <ClInclude Include="..\CryptoppLite\argnames.h" />
+    <ClInclude Include="..\CryptoppLite\base32.h" />
+    <ClInclude Include="..\CryptoppLite\basecode.h" />
+    <ClInclude Include="..\CryptoppLite\config.h" />
+    <ClInclude Include="..\CryptoppLite\cpu.h" />
+    <ClInclude Include="..\CryptoppLite\crc.h" />
+    <ClInclude Include="..\CryptoppLite\cryptlib.h" />
+    <ClInclude Include="..\CryptoppLite\des.h" />
+    <ClInclude Include="..\CryptoppLite\filters.h" />
+    <ClInclude Include="..\CryptoppLite\fips140.h" />
+    <ClInclude Include="..\CryptoppLite\fltrimpl.h" />
+    <ClInclude Include="..\CryptoppLite\hex.h" />
+    <ClInclude Include="..\CryptoppLite\hrtimer.h" />
+    <ClInclude Include="..\CryptoppLite\iterhash.h" />
+    <ClInclude Include="..\CryptoppLite\misc.h" />
+    <ClInclude Include="..\CryptoppLite\modes.h" />
+    <ClInclude Include="..\CryptoppLite\mqueue.h" />
+    <ClInclude Include="..\CryptoppLite\osrng.h" />
+    <ClInclude Include="..\CryptoppLite\pch.h" />
+    <ClInclude Include="..\CryptoppLite\queue.h" />
+    <ClInclude Include="..\CryptoppLite\randpool.h" />
+    <ClInclude Include="..\CryptoppLite\rijndael.h" />
+    <ClInclude Include="..\CryptoppLite\rng.h" />
+    <ClInclude Include="..\CryptoppLite\secblock.h" />
+    <ClInclude Include="..\CryptoppLite\seckey.h" />
+    <ClInclude Include="..\CryptoppLite\sha.h" />
+    <ClInclude Include="..\CryptoppLite\simple.h" />
+    <ClInclude Include="..\CryptoppLite\smartptr.h" />
+    <ClInclude Include="..\CryptoppLite\stdcpp.h" />
+    <ClInclude Include="..\CryptoppLite\strciphr.h" />
+    <ClInclude Include="..\CryptoppLite\trdlocal.h" />
+    <ClInclude Include="..\CryptoppLite\words.h" />
+    <ClInclude Include="Shared\BabelLicense.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

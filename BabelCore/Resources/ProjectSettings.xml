@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<project kind="general" path="" />
+  <shells>
+    <shell name="1" title="Console" width="300" height="200" x="-1" y="-1" controlkind="text">
+      <script shellstart="projectstart" shellend="projectend" isinteractive="True"/>
+    </shell>
+      <shell name="2" title="Log" width="300" height="200" x="-1" y="-1" controlkind="text">
+      <script shellstart="" shellend="" isinteractive="False" usetimeprompt="True"/>
+    </shell>
+  </shells>
+	<channels>
+    <channel name="USB" portname="USB" vid="0x18D1" pid="0x2D00"/>
+    <channel name="COM" portname="COM1" baudrate="57600" parity="None" databits="8" stopbits="One" handshake="None"/>
+  </channels>
+</data>

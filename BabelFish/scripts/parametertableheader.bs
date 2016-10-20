@@ -1,0 +1,27 @@
+﻿// parametertableheader.bs, defines constants for DeviceParameterTable. 26/10/2013.
+// Note: Don't declare these with var because they need to be global.
+VK_None=0;
+VK_OnOff=1;
+VK_Enum=2;
+VK_Bits=3;
+VK_Byte=4;
+VK_SByte=5;
+VK_Short=6;
+VK_UShort=7;
+VK_Int=8;
+VK_UInt=9;
+VK_ID=10;
+VK_Long=11;
+VK_ULong=12;
+VK_LID=13;
+VK_Float=14;
+VK_Double=15;
+VK_String=16;
+
+SF_None=0;
+SF_RAM=1;
+SF_EEPROM=2;
+SF_ReadOnly=4;
+SF_Dynamic=8;
+
+"Device parameter table header loaded.";
